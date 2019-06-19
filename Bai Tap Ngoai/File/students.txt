@@ -1,0 +1,12 @@
+Name : samreach
+Marks : 7
+Name : reach
+Marks : 5
+Name : sam
+Marks : 9
+Name : Ravy
+Marks : 8 
+Name : Ratanak
+Marks : 6 
+Name : Sinat
+Marks : 9 
