@@ -1,0 +1,4 @@
+/home/reach/Reach Disk/C Practise/Print Out and Operation/Hello_world.c:2:9: fatal error: conio.h: No such file or directory
+ #include<conio.h>
+         ^~~~~~~~~
+compilation terminated.
