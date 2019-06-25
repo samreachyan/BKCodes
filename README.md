@@ -1,5 +1,6 @@
 # cautrucdulieu
-Cau Truc Du Lieu cua dai hoc bach khoa ha noi
+June 2019, year 2. Hanoi university of science and technology.
+20182, Ky 2 nam 2, 
 
 ទាំងនេះជាកូដ ដែលខ្ញុំបានសរសេរកំឡុងរៀន។
 ខ្ញុំបានបែកចែកទុកជាបន្តុំ
