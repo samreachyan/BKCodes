@@ -1,6 +1,6 @@
 # cautrucdulieu
 June 2019, year 2. Hanoi university of science and technology.
-20182, Ky 2 nam 2, 
+20182, Ky 2 nam 2, đại học bách khoa hà nội. 
 
 ទាំងនេះជាកូដ ដែលខ្ញុំបានសរសេរកំឡុងរៀន។
 ខ្ញុំបានបែកចែកទុកជាបន្តុំ
@@ -19,4 +19,3 @@ Note: window : .c (void main() )
                all case you can use main(), just remove int or void before main() 
                
                
- Thanks you!!
