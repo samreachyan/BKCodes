@@ -1,4 +1,5 @@
-# cautrucdulieu
+# samreachcode
+#bkcode
 June 2019, year 2. Hanoi university of science and technology. <br>
 20182, Ky 2 nam 2, đại học bách khoa hà nội. <br><br>
 
@@ -20,4 +21,4 @@ Note: window : .c (void main() ) <br>
                
 Contact me:  <a href="https://facebook.com/yan.samreach" target="_blank">Click to my facebook</a>
 
-<h3 style="background-color: grey; color:orange;">Thanks you !</h3>
+<h3><u>Thanks you !</u></h3>
