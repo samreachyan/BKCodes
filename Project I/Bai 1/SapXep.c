@@ -1,13 +1,36 @@
-/*
-	wrote : Yan Samreach 
-	lecture : Pham Quang Dung
-	Year : 20182 , May 20, 2019
-	Describe : About sort algorithsm : insertSort, SelectionSort, BubleSort, MergeSort, QuicklySort, HeapSort >> with my loops.
-*/
-
-#include <stdio.h> 
+#include <stdio.h>
 #include <stdlib.h>
+#define MAX_L 1000000
 
+int n;
+int A[MAX_L];
+
+void readFile(){
+	FILE * f = fopen("SORT.INP", "r");
+	fscanf(f,"%d", &n);
+	for (int i = 0; i < n; ++i) {
+		fscanf(f,"%d",&A[i]);
+	}
+	fclose(f);
+}
+void createFile(char * file){
+	FILE * f1 = fopen(file, "w");
+	for (int i = 0; i < n; ++i) {
+		fprintf(f1, "%d\n", A[i]);
+	}
+	fclose(f1);
+	printf("\n");
+}
+void readSortedFile() {
+	FILE * f = fopen("SORT.OUT","r");
+	for (int i = 0; i < n; ++i) {
+		int data;
+		fscanf(f, "%d",&data);
+		printf("%d ", data);
+	}
+	fclose(f);
+	printf("\n");
+}
 void insertionSort(int A[], int n) {
 	for (int k = 2; k < n; k++) {
 		int last = A[k];
@@ -19,20 +42,6 @@ void insertionSort(int A[], int n) {
 		A[j] = last;
 	}
 }
-
-void selectionSort(int A[], int n) {
-	for (int k = 0; k < n; ++k) {
-		int min = k;
-		for (int j = k+1 ; j < n; ++j)
-		{
-			if (A[min] > A[j]) min = j;
-		}
-		int tmp = A[min];
-		A[min] = A[k];
-		A[k] = tmp;
-	}
-}
-
 void bubleSort (int A[], int n){
 	int swapped ;
 	do {
@@ -48,6 +57,19 @@ void bubleSort (int A[], int n){
 	} while (swapped == 1);
 }
 
+void selectionSort(int A[], int n) {
+	for (int k = 0; k < n; ++k) {
+		int min = k;
+		for (int j = k+1 ; j < n; ++j)
+		{
+			if (A[min] > A[j]) min = j;
+		}
+		int tmp = A[min];
+		A[min] = A[k];
+		A[k] = tmp;
+	}
+}
+
 void merg (int A[], int L, int M, int R) {
 	int i, j, k; 
     int nL = M - L + 1; 
@@ -60,9 +82,9 @@ void merg (int A[], int L, int M, int R) {
         Right[j] = A[M + 1+ j]; 
   
     /* Merge the temp arrays back into arr[l..r]*/
-    i = 0; // Initial index of first subarray 
-    j = 0; // Initial index of second subarray 
-    k = L; // Initial index of merged subarray 
+    i = 0; 
+    j = 0;  
+    k = L; 
     while (i < nL && j < nR) { 
         if (Left[i] <= Right[j]) { 
             A[k] = Left[i]; 
@@ -85,28 +107,6 @@ void merg (int A[], int L, int M, int R) {
         k++; 
     }
 }
-
-/* ham viet ngan hon nhung chua dung */
-// void merg (int A[], int L, int M, int R) {
-// 	int TA[R];
-// 	int i = L;
-// 	int j = M+1 ;
-// 	for (int k = L; k <= R; ++k) {
-// 		if (i > M) {
-// 			TA[k] = A[j];
-// 			j++;
-// 		} else if ( j > R ) {
-// 			TA[k] = A[i];
-// 			i++;
-// 		} else {
-// 			TA[k] = A[j];
-// 			j++;
-// 		}
-
-// 	}
-// 	for (int k = L; k <= R; ++k) A[k] = TA[k];
-// }
-
 void mergeSort(int A[], int L, int R) {
 	if (L < R) {
 		int M = (L+R)/2;
@@ -173,60 +173,53 @@ void PrintArray (int A[], int n){
 	{
 		printf("%d ", A[i]);
 	}
+	printf("\n");
 }
 
-int main(int argc, char const *argv[])
-{
-	int A[] = {5,7,3,8,1,2,9,4,6};
-	int n = sizeof(A)/sizeof(A[0]);
-
-	printf("\nArray before sort : ");
-	PrintArray(A, n);
-
-	printf("\n\n1. Insertion sort.");
+void printMenu(){
+	printf("\n1. Insertion sort.");
 	printf("\n2. Selection sort.");
 	printf("\n3. Buble sort.");
 	printf("\n4. Merge sort.");
 	printf("\n5. Quick sort.");
 	printf("\n6. Heap sort.");
-
 	printf("\n\nEnter your choice : ");
 	int c ; scanf("%d", &c);
 
 	switch(c) {
 		case 1: 
-			printf("\nArray sorted insertionSort : ");
+			printf("\nArray sorted by insertionSort.");
 			insertionSort(A, n);
-			PrintArray(A, n);
 			break;
 		case 2: 
-			printf("\nArray sorted selectionSort : ");
+			printf("\nArray sorted by selectionSort.");
 			selectionSort(A, n);
-			PrintArray(A, n);
 			break;
 		case 3: 
-			printf("\nArray sorted bubleSort : ");
+			printf("\nArray sorted by bubleSort.");
 			bubleSort(A, n);
-			PrintArray(A, n);
 			break;
 		case 4:
-			printf("\nArray sorted mergeSort : ");
+			printf("\nArray sorted by mergeSort.");
 			mergeSort(A, 0, n-1);
-			PrintArray(A, n);
 			break;
 		case 5: 
-			printf("\nArray sorted quickSort : ");
+			printf("\nArray sorted by quickSort.");
 			quickSort(A, 0 ,n);
-			PrintArray(A, n);
 			break;
 		case 6:
-			printf("\nArray sorted heapSort : ");
+			printf("\nArray sorted by heapSort.");
 			heapSort(A, n);
-			PrintArray(A, n);
 			break;
 		default:
 			printf("\nInvalid number.\n");
 	}
-	printf("\n");
+}
+
+int main() {
+	readFile();
+	printMenu();
+	createFile("SORT.OUT");
+	readSortedFile();
 	return 0;
 }
