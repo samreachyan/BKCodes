@@ -1,13 +1,14 @@
 #include <stdio.h>
 #include <stdlib.h>
-#define MAX_L 1000000
 
 int n;
-int A[MAX_L];
+int* A;
 
-void readFile(){
-	FILE * f = fopen("SORT.INP", "r");
-	fscanf(f,"%d", &n);
+void readFile(char * name){
+	FILE * f = fopen(name, "r");
+	fscanf(f,"%d", &n); // read number from file -> n
+	A = (int*)malloc(n*sizeof(int));
+
 	for (int i = 0; i < n; ++i) {
 		fscanf(f,"%d",&A[i]);
 	}
@@ -19,7 +20,6 @@ void createFile(char * file){
 		fprintf(f1, "%d\n", A[i]);
 	}
 	fclose(f1);
-	printf("\n");
 }
 void readSortedFile() {
 	FILE * f = fopen("SORT.OUT","r");
@@ -69,50 +69,33 @@ void selectionSort(int A[], int n) {
 		A[k] = tmp;
 	}
 }
-
-void merg (int A[], int L, int M, int R) {
-	int i, j, k; 
-    int nL = M - L + 1; 
-    int nR =  R - M; 
-    int Left[nL], Right[nR]; 
-  	
-  	for (i = 0; i < nL; i++) 
-        Left[i] = A[L + i]; 
-    for (j = 0; j < nR; j++) 
-        Right[j] = A[M + 1+ j]; 
-  
-    /* Merge the temp arrays back into arr[l..r]*/
-    i = 0; 
-    j = 0;  
-    k = L; 
-    while (i < nL && j < nR) { 
-        if (Left[i] <= Right[j]) { 
-            A[k] = Left[i]; 
-            i++; 
-        } else { 
-            A[k] = Right[j]; 
-            j++; 
-        } 
-        k++; 
-    }
-    // copy sorted array into orginal array 
-    while (i < nL) { 
-        A[k] = Left[i]; 
-        i++; 
-        k++; 
-    }
-    while (j < nR) { 
-        A[k] = Right[j]; 
-        j++; 
-        k++; 
-    }
+void merge (int A[], int L, int M, int R) {
+// tron 2 day da sap A[L..M] va A[M+1..R]
+	int i = L; int j = M+1;
+	int TA[R];
+	for(int k = L; k <= R; k++){
+		if(i > M){ 
+			TA[k] = A[j]; j++;
+		} else if ( j > R ) { 
+			TA[k] = A[i]; 
+			i++;
+		} else {
+			if(A[i] < A[j]){ 
+				TA[k] = A[i]; i++;
+			} else {
+				TA[k] = A[j]; j++;
+			}
+		}
+	}
+	//copy array to original
+	for(int k = L; k <= R; k++) A[k] = TA[k];
 }
 void mergeSort(int A[], int L, int R) {
 	if (L < R) {
 		int M = (L+R)/2;
 		mergeSort(A, L, M);
 		mergeSort(A, M+1, R);
-		merg(A, L, M, R);
+		merge(A, L, M, R);
 	}
 }
 
@@ -216,10 +199,18 @@ void printMenu(){
 	}
 }
 
-int main() {
-	readFile();
+int main(int argc, char * argv[]) {
+	// printf("So luong tham so %d\n", argc);
+	char name[20];
+	for(int i = 1; i<argc; i++){
+		readFile(argv[i]);
+		// printf("%s\n", argv[i] );
+	}
+	PrintArray(A,n);
 	printMenu();
 	createFile("SORT.OUT");
 	readSortedFile();
+
+	free(A);
 	return 0;
 }
