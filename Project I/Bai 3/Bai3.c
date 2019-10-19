@@ -82,6 +82,40 @@ void Display(int queueA[], int size){
 	}
 	printf("\n");
 }
+int checkSorted(int n, int queueA[]) 
+{ 
+    int stackB[n]; 
+    int hoanvi = 1; 
+    int fnt; 
+  
+    // while given Queue is not empty. 
+    while (!isEmptyQueue()) { 
+        fnt = Peek(queueA); 
+        dequeue(queueA); 
+  
+        // if front element is the expected element 
+        if (fnt == hoanvi
+        	) 
+           	hoanvi++; 
+  
+        else { 
+            if (!isEmptyStack() && Top(stackB) < fnt) { 
+                return 0; 
+            } 
+  
+            // else push into the stack. 
+            else
+                Push(stackB, n, fnt);
+        } 
+  
+        while (!isEmptyStack() && Top(stackB) == hoanvi) { 
+            Pop();
+            hoanvi++; 
+        } 
+    } 
+   	return 1;
+} 
+
 int main(int argc, char const *argv[]) {
 	int size = 4;
 	// printf("\nEnter number trains : ");
@@ -94,6 +128,11 @@ int main(int argc, char const *argv[]) {
 	enqueue(queueA, size, 4);
 	enqueue(queueA, size, 3);
 	enqueue(queueA, size, 2);
+
+	// enqueue(queueA, size, 1);
+	// enqueue(queueA, size, 3);
+	// enqueue(queueA, size, 4);
+	// enqueue(queueA, size, 2);
 	
 	// for (int i = 0; i < size; ++i) {
 	// 	int n;
@@ -112,20 +151,26 @@ int main(int argc, char const *argv[]) {
 
 		if ( fnt == hoanvi ){
 			hoanvi++;
-			printf("\n%d) A-C : %d",count++, fnt);
+			printf("\n%d) A => C : %d",count++, fnt);
 		} 
 		else {
-			Push(stackB, size, fnt);
-			printf("\n%d) A-B : %d",count++, fnt);
+			if (!isEmptyStack() && Top(stackB) < fnt) { 
+                goto but;
+            } else {
+				Push(stackB, size, fnt);
+				printf("\n%d) A => B : %d",count++, fnt);
+			}
 		}
 
 		// pop from stack to new queue
 		while (Top(stackB) == hoanvi) {
-			printf("\n%d) B-C : %d",count, Top(stackB));
+			printf("\n%d) B => C : %d",count++, Top(stackB));
 			Pop();
 			hoanvi++;
 		}
 	}
 
 	// sai một trường hợp là  1 3 4 2
+	but: printf("\nTrang Thai khong sap xep duoc...\n");
+	return 0;
 }
