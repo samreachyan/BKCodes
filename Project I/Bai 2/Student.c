@@ -105,31 +105,25 @@ Node * sortList(Node * h)
 }
 
 Node * deleteLop(Node * h, char * lop){
-	
-	// if (h == NULL) return NULL;
-	// if ( strcmp(h->lop, lop) == 0){
-	// 	Node * tmp = h;
-	// 	h=h->next;
-	// 	free(tmp);
-	// }
-	// while(h != NULL){
-	// 	if ( strcmp(h->lop, lop)== 0){
-	// 		Node * tmp = h;
-	// 		h = h->next;
-	// 		free(tmp);
-	// 	}
-	// 	else h = h->next;
-	// }
-
-	// error after delete class at the last position
-	// don't know why...???
-	if ( h == NULL) return NULL;
-	if ( strcmp(h->lop, lop)==0 ) {
-		Node * temp = h;
-		h = h->next;
-		free(temp);
+	Node * h1, *h2;
+	h1 = h;
+	while(h1 != NULL){
+		if (strcmp(lop , h1->lop) == 0){
+			if (h1 == h){
+				h2 = h1->next;
+				h = h2; // đúng trong TH xóa bản đầu, nếu bản ghi cuối là sai
+				free(h1);
+				h1 = h2;
+			} else {
+				Node * tmp = h1;
+				h2 = h1->next;
+				free(tmp);
+				h1 = h2;
+			}
+			
+		} 
+		else h1 = h1->next;
 	}
-	h->next = deleteLop(h->next , lop);
 	return h;
 }
 
@@ -167,7 +161,36 @@ void displayList(Node * h){
     }
 }
 
+Node * addSortedList(Node * h, Node * moi){
+	Node * f1;
+	f1 = h;
+	
+	if (h == NULL) return moi;
+	while(f1 != NULL){
+		if (moi->dtb > f1->dtb){
+			if (f1 == h){
+				moi->next = f1;
+				h = moi;
+				return h;
+			} else {
+				moi->next = f1->next;
+				f1->next = moi;
+				return h;
+			}
+		} else if (moi->dtb > f1->next->dtb){
+			moi->next = f1->next;
+			f1->next = moi;
+			return h;
+		} else {
+			f1 = f1->next;
+		}
+	}
+	f1->next = moi;
+	moi->next = NULL;
+	return h;
+}
 
+// can store the last student 
 Node * readFile(char * fname){
 	Node * h;
 	Node * ghi = (Node*)malloc(sizeof(Node));
@@ -175,20 +198,14 @@ Node * readFile(char * fname){
 	if ( f == NULL){
 		printf("No file opened ... !!\n");
 	} else {
-		char MSSV[10];
-		char ten[30];
-		float dtb;
-		char lop[10];
-		char sdt[15];
 		while( !feof(f)){
-			// cannot store link data on head becuase error function
 			fscanf(f, "%s %s %f %s %s ", ghi->MSSV, ghi->ten, &ghi->dtb, ghi->lop, ghi->sdt);
 			printf("%s %s %.2f %s %s\n",ghi->MSSV, ghi->ten, ghi->dtb, ghi->lop, ghi->sdt );
 			printf("\nOK copied\n");
-			if(h==NULL) h=ghi;
-			while(h!= NULL) h=h->next;
 			h=ghi;
+			// h = insertHead(h, ghi);
 		}
+
 		fclose(f);
 	}
 	printf("\nDone\n");
@@ -205,32 +222,7 @@ void saveFile(Node * h){
 }
 
 
-int main(int argc, char const *argv[]) {
-	// head = NULL;
-	// Node * moi;
-	// moi = makeNode();
-	// head = insertHead(head, moi);
-	// moi = makeNode();
-	// head = insertHead(head, moi);
-	// moi = makeNode();
-	// head = insertHead(head, moi);
-
-	// // moi = makeNode();
-	// // head = insertTail(head, moi);
-
-	// displayList(head);
-
-	// char lop[10];
-	// printf("Delete class : ");
-	// scanf("%s", lop);
-	// head = deleteLop(head, lop);
-
-	// // head = sortList(head); // ok
-	// // search(head); // ok
-
-	// displayListRank(head);
-	// displayList(head);
-
+main(int argc, char const *argv[]) {
 	head = NULL;
 	Node * moi;
 	int chon;
@@ -247,6 +239,7 @@ int main(int argc, char const *argv[]) {
         printf("7. Display rank students\n");
         printf("8. Save data to file\n");
         printf("9. Read file from Student.inp\n");
+        printf("10. Add student to Sorted List\n");
         printf("-----------------------------------------------\n");  
         printf("Enter you options : ");
         scanf("%d", &chon); 
@@ -288,7 +281,7 @@ int main(int argc, char const *argv[]) {
         		char lop[10];
 				printf("Delete class : ");
 				scanf("%s", lop);
-        		deleteLop(head,lop);
+        		head = deleteLop(head,lop);
         		getchar();
         		break;
         	case 6 : 
@@ -315,6 +308,14 @@ int main(int argc, char const *argv[]) {
         		head = readFile("student.INP");
         		getchar();
         		printf("You read file successfully\n");
+        		getchar();
+        		break;
+        	case 10 : 
+        		system("clear");
+        		moi = makeNode();
+        		head = addSortedList(head, moi);
+        		printf("Add student to sorted list successfully\n");
+        		getchar();
         		getchar();
         		break;
 
