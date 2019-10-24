@@ -1,5 +1,5 @@
-/* 
-	Professor : Pham Ngoc Hung 
+/*
+	Professor : Pham Ngoc Hung
 	Writher : YAN Samreach
 	Subject : Project I (Bai 2).
 	Title : Student Management with Link list
@@ -10,7 +10,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
- 
+
 struct Node {
     char ten[20];
     char MSSV[10];
@@ -19,7 +19,7 @@ struct Node {
     char sdt[15];
     struct Node * next;
 };
-struct Node * head;
+Node * head;
 
 Node * makeNode (){
 	Node * h = (Node*)malloc(sizeof(Node));
@@ -54,7 +54,7 @@ Node * insertTail(Node * h, Node * moi){
 void search(Node * h){
 	char name[20], lop[10];
 	int kiemtra = 0;
-	printf("Enter name : "); 
+	printf("Enter name : ");
 	scanf("%s", name);
 	printf("Enter Class : ");
 	scanf("%s", lop);
@@ -83,22 +83,22 @@ void swap (float *sv1,  float *sv2){
     *sv1 = * sv2;
     *sv2 = tmp;
 }
-Node * sortList(Node * h)  
-{  
-    Node* p = h;  
-    while (p != NULL) {  
-        Node* q = h;  
-        while (q != NULL) {  
+Node * sortList(Node * h)
+{
+    Node* p = h;
+    while (p != NULL) {
+        Node* q = h;
+        while (q != NULL) {
             if (p->dtb > q->dtb) {
-                swapString(p->ten, q->ten); 
-                swapString(p->MSSV, q->MSSV); 
-                swap(&p->dtb, &q->dtb); 
-                swapString(p->lop, q->lop); 
+                swapString(p->ten, q->ten);
+                swapString(p->MSSV, q->MSSV);
+                swap(&p->dtb, &q->dtb);
+                swapString(p->lop, q->lop);
                 swapString(p->sdt, q->sdt);
             }
             q = q->next;
-        }  
-        p = p->next;  
+        }
+        p = p->next;
     }
     printf("\nSort already...\n");
     return h;
@@ -115,13 +115,11 @@ Node * deleteLop(Node * h, char * lop){
 				free(h1);
 				h1 = h2;
 			} else {
-				Node * tmp = h1;
-				h2 = h1->next;
-				free(tmp);
-				h1 = h2;
+				h2 = h1;
+				h1 = h1->next;
+				free(h2);
 			}
-			
-		} 
+		}
 		else h1 = h1->next;
 	}
 	return h;
@@ -164,7 +162,7 @@ void displayList(Node * h){
 Node * addSortedList(Node * h, Node * moi){
 	Node * f1;
 	f1 = h;
-	
+
 	if (h == NULL) return moi;
 	while(f1 != NULL){
 		if (moi->dtb > f1->dtb){
@@ -190,25 +188,22 @@ Node * addSortedList(Node * h, Node * moi){
 	return h;
 }
 
-// can store the last student 
-Node * readFile(char * fname){
-	Node * h;
-	Node * ghi = (Node*)malloc(sizeof(Node));
+// can store the last student
+Node * readFile(Node * h, char * fname){
+	// Node * h;
 	FILE * f = fopen("student.INP", "r");
 	if ( f == NULL){
 		printf("No file opened ... !!\n");
 	} else {
-		while( !feof(f)){
+		do {
+			Node * ghi = (Node*)malloc(sizeof(Node));
 			fscanf(f, "%s %s %f %s %s ", ghi->MSSV, ghi->ten, &ghi->dtb, ghi->lop, ghi->sdt);
 			printf("%s %s %.2f %s %s\n",ghi->MSSV, ghi->ten, ghi->dtb, ghi->lop, ghi->sdt );
-			printf("\nOK copied\n");
-			h=ghi;
-			// h = insertHead(h, ghi);
-		}
-
-		fclose(f);
+			h = insertTail(h,ghi); // hoac h = insertHead(h, ghi);
+		} while (!feof(f));
 	}
 	printf("\nDone\n");
+	fclose(f);
 	return h;
 }
 void saveFile(Node * h){
@@ -222,32 +217,32 @@ void saveFile(Node * h){
 }
 
 
-main(int argc, char const *argv[]) {
+int main(int argc, char const *argv[]) {
 	head = NULL;
 	Node * moi;
 	int chon;
 	do
 	{
 		system("clear");
-		printf("0. Exit Program\n");  
-        printf("1. Add student at head\n");  
-        printf("2. Add studnet at tail\n");  
-        printf("3. Search students\n");  
+		printf("0. Exit Program\n");
+        printf("1. Add student at head\n");
+        printf("2. Add studnet at tail\n");
+        printf("3. Search students\n");
         printf("4. Sorted students\n");
-        printf("5. Delete student by Class\n");   
-        printf("6. Display students detail\n");  
+        printf("5. Delete student by Class\n");
+        printf("6. Display students detail\n");
         printf("7. Display rank students\n");
         printf("8. Save data to file\n");
         printf("9. Read file from Student.inp\n");
         printf("10. Add student to Sorted List\n");
-        printf("-----------------------------------------------\n");  
+        printf("-----------------------------------------------\n");
         printf("Enter you options : ");
-        scanf("%d", &chon); 
+        scanf("%d", &chon);
         switch(chon){
-        	case 0 : 
+        	case 0 :
         		exit(1);
         		break;
-        	case 1 : 
+        	case 1 :
         		system("clear");
         		moi = makeNode();
         		head = insertHead(head, moi);
@@ -255,7 +250,7 @@ main(int argc, char const *argv[]) {
         		getchar();
         		getchar();
         		break;
-        	case 2 : 
+        	case 2 :
         		system("clear");
         		moi = makeNode();
         		head = insertTail(head, moi);
@@ -263,20 +258,20 @@ main(int argc, char const *argv[]) {
         		getchar();
         		getchar();
         		break;
-        	case 3 : 
+        	case 3 :
         		system("clear");
         		search(head);
         		getchar();
         		getchar();
         		break;
-        	case 4 : 
+        	case 4 :
         		system("clear");
         		head = sortList(head);
         		displayList(head);
         		getchar();
         		getchar();
         		break;
-        	case 5 : 
+        	case 5 :
         		system("clear");
         		char lop[10];
 				printf("Delete class : ");
@@ -284,7 +279,7 @@ main(int argc, char const *argv[]) {
         		head = deleteLop(head,lop);
         		getchar();
         		break;
-        	case 6 : 
+        	case 6 :
         		system("clear");
         		displayList(head);
         		getchar();
@@ -296,21 +291,21 @@ main(int argc, char const *argv[]) {
         		getchar();
         		getchar();
         		break;
-        	case 8 : 
+        	case 8 :
         		system("clear");
         		saveFile(head);
         		getchar();
         		printf("You stored data on << student.OUT >>\n");
         		getchar();
         		break;
-        	case 9 : 
+        	case 9 :
         		system("clear");
-        		head = readFile("student.INP");
+        		head = readFile(head, "student.INP");
         		getchar();
         		printf("You read file successfully\n");
         		getchar();
         		break;
-        	case 10 : 
+        	case 10 :
         		system("clear");
         		moi = makeNode();
         		head = addSortedList(head, moi);
