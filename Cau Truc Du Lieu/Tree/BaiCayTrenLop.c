@@ -195,8 +195,8 @@ int main(int argc, char const *argv[])
 	
 	insertRight(root->right, 7);
 	insertLeft(root->left, 6);
-	// insertLeft(root->right, 8);
-	// insertLeft(root->right->right, 9);
+	insertLeft(root->right, 8);
+	insertRight(root->left, 9);
 
 	printf("\nInorder value  : ");
 	inorder(root);

@@ -4,7 +4,6 @@
 	Subject:  CTDL Project 1
 	Date : 19/10/2019
 */
-
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -82,39 +81,6 @@ void Display(int queueA[], int size){
 	}
 	printf("\n");
 }
-int checkSorted(int n, int queueA[]) 
-{ 
-    int stackB[n]; 
-    int hoanvi = 1; 
-    int fnt; 
-  
-    // while given Queue is not empty. 
-    while (!isEmptyQueue()) { 
-        fnt = Peek(queueA); 
-        dequeue(queueA); 
-  
-        // if front element is the expected element 
-        if (fnt == hoanvi
-        	) 
-           	hoanvi++; 
-  
-        else { 
-            if (!isEmptyStack() && Top(stackB) < fnt) { 
-                return 0; 
-            } 
-  
-            // else push into the stack. 
-            else
-                Push(stackB, n, fnt);
-        } 
-  
-        while (!isEmptyStack() && Top(stackB) == hoanvi) { 
-            Pop();
-            hoanvi++; 
-        } 
-    } 
-   	return 1;
-} 
 
 int main(int argc, char const *argv[]) {
 	int size = 4;
@@ -171,6 +137,6 @@ int main(int argc, char const *argv[]) {
 	}
 
 	// sai một trường hợp là  1 3 4 2
-	but: printf("\nTrang Thai khong sap xep duoc...\n");
+	but: printf("\nTrang Thai khong sap xep duoc nua...\n");
 	return 0;
 }
