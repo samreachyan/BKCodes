@@ -104,20 +104,20 @@ Node * sortList(Node * h)
     return h;
 }
 
+
 Node * deleteLop(Node * h, char * lop){
-	Node * h1, *h2;
-	h1 = h;
+	Node * h1 = h, *h2, *h0;
 	while(h1 != NULL){
 		if (strcmp(lop , h1->lop) == 0){
+			// nếu h1 là lớp xóa 
+			// 
 			if (h1 == h){
 				h2 = h1->next;
 				h = h2; // đúng trong TH xóa bản đầu, nếu bản ghi cuối là sai
 				free(h1);
 				h1 = h2;
 			} else {
-				h2 = h1;
-				h1 = h1->next;
-				free(h2);
+
 			}
 		}
 		else h1 = h1->next;
