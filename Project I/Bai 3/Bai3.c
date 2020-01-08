@@ -90,15 +90,15 @@ int main(int argc, char const *argv[]) {
 	int queueA[size];
 	int stackB[size];
 
-	enqueue(queueA, size, 1);
-	enqueue(queueA, size, 4);
-	enqueue(queueA, size, 3);
-	enqueue(queueA, size, 2);
-
 	// enqueue(queueA, size, 1);
-	// enqueue(queueA, size, 3);
 	// enqueue(queueA, size, 4);
+	// enqueue(queueA, size, 3);
 	// enqueue(queueA, size, 2);
+
+	enqueue(queueA, size, 1);
+	enqueue(queueA, size, 3);
+	enqueue(queueA, size, 4);
+	enqueue(queueA, size, 2);
 	
 	// for (int i = 0; i < size; ++i) {
 	// 	int n;
