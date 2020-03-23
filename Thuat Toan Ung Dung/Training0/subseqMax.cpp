@@ -18,7 +18,7 @@ int maxSubArraySum(int a[], int size)
     return max_so_far; 
 } 
   
-/*Driver program to test maxSubArraySum*/
+/* Driver program to test maxSubArraySum */
 int main() 
 {
 	int n;
@@ -29,6 +29,6 @@ int main()
 	}
 	
     int max_sum = maxSubArraySum(a, n); 
-    cout << max_sum; 
-    return 0; 
+    cout << max_sum;
+    return 0;
 } 
