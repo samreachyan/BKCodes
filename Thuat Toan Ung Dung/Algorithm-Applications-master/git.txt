@@ -1,0 +1,7 @@
+tao repo moi
+git clone
+add file to folder
+git status // trang thai
+git add *
+git commit -m "Add all new file to github"
+git push
