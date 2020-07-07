@@ -1,4 +1,6 @@
-#include <iostream>
+#include <bits/stdc++.h>
+#define MAX 1000
+
 using namespace std;
 
 	//	0 3 14 18 15
@@ -6,36 +8,51 @@ using namespace std;
 //C   = 17 9 0 16 4
 	//	9 20 7 0 18
 	//	9 15 11 5 0
-	
+
+int n; 
+int a[MAX];
+int c[MAX][MAX];
+bool visitted[MAX];
+int c_min = MAX*MAX;
+int f = 0;
+int f_min = MAX*MAX;
+
 void Try(int k){
-	for (int v = 1; v <= n ; i++){
-		if (visited[v] == false){
-			x[k] = v;
-			visited[v] = true;
-			f = f + c(x[k-1], x[k]);
-			if (k == n) {
-				if ( f + c(x[n], x[1]) < f* )
-					f* = f + c(x[n], x[1]);
-			} else {
-				g = f + (n-k+1) * Cmin ;
-				if ( g < f* ) Try(k+1);
+	for(int i = 2; i <= n; i++){
+		if(!visitted[i]){
+			a[k] = i;
+			visitted[i] = true;
+			f += c[a[k-1]][a[k]];
+			if(k == n){
+				f_min = min(f + c[a[n]][a[1]], f_min);	
+			} else{
+				int g = f + (n-k+1)*c_min;
+				if(g < f_min) Try(k+1);
 			}
+			visitted[i] = false;
+			f -= c[a[k-1]][a[k]];
 		}
-		f = f - c(k[k-1], k[k]);
-		visited[v] = false;
 	}
 }
 
-void BranchAndBound() {
-	f* = 99999999;
-	for (v=1 ; v<=n ; v++){
-		visited[v] = false;
+int main(){
+	
+	cin >> n;
+	for(int i = 1; i <= n; i++){
+		visitted[i] = false;
+		for(int j = 1; j <= n; j++){
+			cin >> c[i][j];
+			if(c[i][j] != 0) c_min = min(c_min, c[i][j]);
+		}
 	}
-	f = 0; 
-	x[1] = 1;
-	visited[x[1]] = true;
-	Branch(2);
-	return f*;
+	
+	a[1] = 1;
+	visitted[a[1]] = true;
+	Try(2);
+	cout << "C min: " << c_min << "\n";
+	cout<< "chi phi: " << f_min << "\n";
+	cout << "Hanh trinh: ";
+	for(int i = 1; i <= n; i++) cout << a[i] << " ";
+	
+	return 0;	
 }
-
-//no work
