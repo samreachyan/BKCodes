@@ -1,0 +1,7 @@
+.vscode
+'Thuat Toan Ung Dung'/.vscode
+
+*/*/*/*.exe
+*/*/*.exe
+*/*.exe
+*.exe
