@@ -14,6 +14,20 @@ int counteven(int *arr, int size) {
     return count;
 }
 
+// Bai 5
+double* maximum(double* a, int size){
+    double *max;
+    max = a;
+    if (a==NULL) return NULL;
+    for (int i = 1; i < size; i++) {
+        printf("%d ", (a+i));
+        if (max < (a+i)) max = (a+i);
+    }
+    
+    printf("\n haha = %d\n", &max);
+    return max;
+}
+
 int main() {
     int *arr;
     int size;
@@ -21,6 +35,7 @@ int main() {
     for (int i = 0; i < size; i++) {
         scanf("%d", arr+i);
     }
-    printf("\n\nCountEven = %d", counteven(arr, size));    
+    printf("\nMax = %d", maximum(arr, size));
+    printf("\nCountEven = %d", counteven(arr, size));    
     return 0;
 }
