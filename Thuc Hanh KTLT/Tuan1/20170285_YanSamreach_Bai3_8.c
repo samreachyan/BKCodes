@@ -3,26 +3,28 @@
 
 void allocate_mem(int **mt, int m, int n){
     //#Allocate memory for the matrix
-    
+    mt = (int **)malloc(m * sizeof(int *));
+    for (int i=0; i<m; i< i++)
+        mt[i] = (int *)malloc(n * sizeof(int));
 }
 
 
 void input(int **mt, int m, int n){
     //#Input elements of the matrix
-    int c = 0;
-    for (int i=0; i<m; ++i) 
-        for (int j=0; j<n; ++j)
-            mt[i][j] = ++c;
-            // scanf("%d", mt + i*n + j);
+    // int count = 0;
+    for (int i = 0; i < m; i++) 
+        for (int j = 0; j < n; j++) 
+        //  mt[i][j] = ++count; 
+            scanf("%d", *(*(mt+i)+j));
 }
 
 void output(int **mt, int m, int n){
     //# Print all elements of the matrix
     for (int i=0; i<m; ++i) {
         for (int j=0; j<n; ++j)
-            printf("%d ", mt[i][j]);
+            printf("%d ", *(*(mt+i)+j));
         printf("\n");
-    }    
+    }
 }
 
 int process(int **mt, int m, int n){
