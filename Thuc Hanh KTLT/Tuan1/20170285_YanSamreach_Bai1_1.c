@@ -11,12 +11,12 @@ int main() {
     scanf("%d %d %d", &x, &y, &z);
     printf("\nThe three integers are:\n");
     ptr = &x;
-    printf("x = %d\n", &ptr);
+    printf("x = %d\n", *ptr);
 
     ptr = &y;
-    printf("y = %d\n", &ptr);
+    printf("y = %d\n", *ptr);
 
     ptr = &z;
-    printf("z = %d\n", &ptr);
+    printf("z = %d\n", *ptr);
     return 0;
 }

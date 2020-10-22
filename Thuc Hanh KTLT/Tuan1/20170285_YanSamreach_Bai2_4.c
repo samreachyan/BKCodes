@@ -3,6 +3,7 @@
     date: 21-Oct-2020
 */
 #include <stdio.h>
+// Bai 4
 int counteven(int *arr, int size) {
     int count = 0;
     for (int i=0; i<size; i++) {
@@ -19,12 +20,12 @@ double* maximum(double* a, int size){
     double *max;
     max = a;
     if (a==NULL) return NULL;
-    for (int i = 1; i < size; i++) {
-        printf("%d ", (a+i));
+    for (int i = 0; i < size; i++) {
+        printf("%d ", *(a+i));
         if (max < (a+i)) max = (a+i);
     }
     
-    printf("\n haha = %d\n", &max);
+    printf("\n haha = %d\n", max);
     return max;
 }
 
@@ -65,7 +66,7 @@ int main() {
     }
     ptr_reversearray(arr, size);
 
-    printf("\nMax = %d", maximum(arr, size));
-    printf("\nCountEven = %d", counteven(arr, size));    
+    // printf("\nMax = %d", maximum(arr, size));
+    // printf("\nCountEven = %d", counteven(arr, size));    
     return 0;
 }

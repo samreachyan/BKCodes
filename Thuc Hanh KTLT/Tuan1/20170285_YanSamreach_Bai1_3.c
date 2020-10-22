@@ -11,9 +11,6 @@ int main()
     printf("Here are the values of x, y, and z:\n");
     printf("%d %d %d\n", x, y, z);
 
-    /*****************
-    # YOUR CODE HERE #
-    *****************/
     ptr = &x;
     *ptr += 100;
     ptr = &y;
