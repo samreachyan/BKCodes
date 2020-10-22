@@ -1,8 +1,9 @@
 #include <stdio.h>
+#include <math.h>
 
 //# Viết hàm get_value
-int get_value(int x) {
-    
+int get_value(int x, int a = 2, int b = 1, int c = 0) {
+    return a*pow(x,2) + b*x + c;
 }
 
 int main(){
