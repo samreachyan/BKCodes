@@ -1,11 +1,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-void allocate_mem(int ***mt, int m, int n){
+void allocate_mem(int **mt, int m, int n){
     //#Allocate memory for the matrix
-    mt = (int *)malloc(m * sizeof(int));
-    for (int i=0; i<m; ++i) 
-        mt[i] = (int *)malloc(n * sizeof(int));
+    
 }
 
 
