@@ -1,10 +1,17 @@
 #include <iostream>
+#include <bits/stdc++.h>
 using namespace std;
 
-//# viết hàm arr_sum
-/*****************
-# YOUR CODE HERE #
-*****************/
+template <typename T>
+T arr_sum (T a[], int m, T b[], int n) {
+    T tmp = 0;
+    for (int i=0; i<m; i++) 
+        tmp += a[i];
+    for (int i=0; i<n; i++) 
+        tmp += b[i];
+    return tmp;
+}
+
 
 int main() {
     int val;

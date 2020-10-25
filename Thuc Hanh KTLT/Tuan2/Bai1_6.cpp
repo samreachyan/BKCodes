@@ -14,7 +14,7 @@ int div2(int n) {
 }
 
 // khai báo các tham số cho các con trỏ hàm odd, even và output
-void simulate(int n, /*****************# YOUR CODE HERE #*****************/)  {
+void simulate(int n, int (*odd)(int) = mul3plus1, int (*even)(int) = div2, void (*output)(int) = print) {
     (*output)(n);
     if (n == 1) return;
     if (n % 2 == 0) {
@@ -26,12 +26,8 @@ void simulate(int n, /*****************# YOUR CODE HERE #*****************/)  {
 }
 
 int main() {
-    int (*odd)(int) = NULL;
-    int (*even)(int) = NULL;
-
-    /*****************
-    # YOUR CODE HERE #
-    *****************/
+    int (*odd)(int) = mul3plus1;
+    int (*even)(int) = div2;
 
     int n;
     scanf("%d", &n);
