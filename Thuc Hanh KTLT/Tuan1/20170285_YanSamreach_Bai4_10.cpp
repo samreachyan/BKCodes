@@ -1,10 +1,15 @@
+/*
+	author: Yan Samreach
+	date: 28-oct-2020
+*/
+
 #include<iostream>
 using namespace std;
 
 void InitMatrix(int ***m,int n) {
 	*m = new int*[n];
 	for(int i = 0 ; i < n ; i++)
-      *(*m+i) = new int[n];
+      	*(*m+i) = new int[n];
 }
 
 void input(int **m, int n) {
@@ -17,7 +22,7 @@ void output(int **m, int n) {
 	for(int i =0 ; i< n ; i++) {
 		for(int j =0 ; j< n ; j++)
 			cout << m[i][j] << " ";
-   	cout << endl;
+   		cout << endl;
 	}
 }
 
@@ -55,16 +60,16 @@ int main(){
    cin >> n;
 	int **m1, **m2, **res, **sum;
 	
-	InitMatrix(&m1,n);
-	InitMatrix(&m2,n);
+	InitMatrix(&m1, n);
+	InitMatrix(&m2, n);
 
-	input(m1,n);
-	input(m2,n);
+	input(m1, n);
+	input(m2, n);
    
-	sum = tong(m1,m2,n);
-	output(sum,n);
+	sum = tong(m1, m2, n);
+	output(sum, n);
 
-   res = tich(m1, m2, n);
+   	res = tich(m1, m2, n);
 	output(res, n);
 
 	giaiphong(m1, n);
