@@ -1,49 +1,74 @@
+#include<iostream>
+using namespace std;
 
-#include <stdio.h> 
-#include <stdlib.h> 
-  
-void displayMatrix (int *arr, int n) {
-   for (int i = 0; i <  n; i++) {
-      for (int j = 0; j < n; j++) 
-         printf("%d ", *(arr + i*n + j)); 
-      printf("\n");
-   }
+void InitMatrix(int ***m,int n) {
+	*m = new int*[n];
+	for(int i = 0 ; i < n ; i++)
+      *(*m+i) = new int[n];
 }
 
-int main() 
-{ 
+void input(int **m, int n) {
+	for(int i =0 ; i< n ; i++)
+		for(int j =0 ; j< n ; j++)
+			cin >> m[i][j];
+}
+
+void output(int **m, int n) {
+	for(int i =0 ; i< n ; i++) {
+		for(int j =0 ; j< n ; j++)
+			cout << m[i][j] << " ";
+   	cout << endl;
+	}
+}
+
+void giaiphong(int **m,int n){
+	for(int i=0 ; i<n; i++)
+		delete[] m[i];
+	delete[] m;
+}
+
+int ** tong(int **m1,int **m2,int n) {
+	int ** sum;
+	InitMatrix(&sum , n);
+	for(int i=0; i<n; i++){
+    	for(int j=0 ; j<n ;j++)
+    		sum[i][j] = m1[i][j] + m2[i][j];
+	}
+	return sum;
+}
+
+int ** tich(int **m1, int **m2, int n) {
+   int ** tich;
+   InitMatrix(&tich, n);
+   for(int i=0; i<n; i++)
+    	for(int j=0 ; j<n ;j++){
+    		tich[i][j]=0;
+    		for(int k = 0 ; k < n; k++)
+    			tich[i][j] += (m1[i][k] * m2[k][j]);
+		}
+   
+   return tich;
+}
+
+int main(){
    int n;
-   scanf("%d", &n);
-   int *arr1 = (int *)malloc(n * n * sizeof(int)); 
-   int *arr2 = (int *)malloc(n * n * sizeof(int)); 
-   int *arrTong = (int *)malloc(n * n * sizeof(int)); 
-   int *arrTich = (int *)malloc(n * n * sizeof(int));
+   cin >> n;
+	int **m1, **m2, **res, **sum;
+	
+	InitMatrix(&m1,n);
+	InitMatrix(&m2,n);
 
-   //input array 1
-   for (int i = 0; i <  n; i++) 
-      for (int j = 0; j < n; j++)
-         scanf("%d", (arr1 + i*n + j));
+	input(m1,n);
+	input(m2,n);
+   
+	sum = tong(m1,m2,n);
+	output(sum,n);
 
-   //input array 2
-   for (int i = 0; i <  n; i++) 
-      for (int j = 0; j < n; j++) 
-         scanf("%d", (arr2 + i*n + j));
+   res = tich(m1, m2, n);
+	output(res, n);
 
-   // Tong 2 arrays together
-   for (int i=0; i<n; i++)
-      for (int j=0; j<n; j++) 
-         *(arrTong + i*n + j) = *(arr1 + i*n + j) + *(arr2 + i*n + j);
-
-   // Tich 2 array together
-   for (int i=0; i<n; i++)
-      for (int j=0; j<n; j++) {
-         *(arrTich + i + j)= 0; // initial array tich
-         for (int k=0; k<n; k++)
-            *(arrTich + i + j) += *(arr1 + i + k) * *(arr2 + k + j);
-      }
-
-   // displayMatrix(arrTong, n);
-   displayMatrix(arrTich, n);
-    
-   return 0; 
-} 
+	giaiphong(m1, n);
+	giaiphong(m2, n);
+	giaiphong(res, n);
+	giaiphong(sum, n);
+}
