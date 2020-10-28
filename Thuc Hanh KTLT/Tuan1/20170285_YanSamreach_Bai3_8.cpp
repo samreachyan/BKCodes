@@ -16,7 +16,8 @@ void input(int **mt, int m, int n){
     //#Input elements of the matrix
     for(int i = 0 ;i < m ;i++){
     	for(int j=0 ; j<n ;j++){
-            cin >> mt[i][j];
+    		printf("mt[%d][%d] = ",i,j);
+    		scanf("%d",(*(mt+i)+j));
 		}
 	}
 }
@@ -25,7 +26,7 @@ void output(int **mt, int m, int n){
     //# Print all elements of the matrix
     for(int i=0; i<m ; i++){
     	for(int j=0; j < n ;j++){
-    		cout << *(*(mt+i)+j);
+    		cout << *(*(mt+i)+j) << " ";
 		}
         cout << endl;
 	}
