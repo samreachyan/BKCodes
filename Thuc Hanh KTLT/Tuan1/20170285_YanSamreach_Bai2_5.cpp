@@ -6,24 +6,17 @@ double * maximum(double* a, int size)
     double *max;
     max = a;
     if (a==NULL) return NULL;
-
-    double maxVal = *max;
+    max = &a[0];
     for (int i=1; i<size; ++i) 
-        if (a[i] > maxVal) {
+        if (a[i] > *max) {
             max = &a[i];
-            maxVal = *max;
         }
     return max;
 }
 
 int main() {
-    double *arr;
-    int size;
-    scanf("%d", &size);
-    for (int i = 0; i < size; i++) {
-        scanf("%dl", arr+i);
-    }
-
-    double * max = maximum(arr, size);
-    printf("\nMax = %dl\n", max);
+    double a[]={1.2,2.5,9.55};
+	double * max = maximum(a, 3);
+	printf("%lf \n", *max);
+	return 0;
 }
