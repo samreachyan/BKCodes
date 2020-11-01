@@ -1,5 +1,5 @@
-#include <bits/stdc++.h>
-
+#include <iostream>
+#include <math.h>
 using namespace std;
 
 double sigmoid_slow(double x)
