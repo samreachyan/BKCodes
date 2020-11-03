@@ -1,3 +1,7 @@
+/* 
+    auth: Yann Samreach
+    date: 3-Nov-2020
+*/
 #include <iostream>
 #include <ostream>
 #include <math.h>
@@ -25,17 +29,18 @@ Complex operator - (Complex a, Complex b) {
 }
 
 Complex operator * (Complex a, Complex b) {
-    Complex t;
-    t.real = a.real * b.real;
-    t.imag = a.imag * b.imag;
-    return t;
+    Complex tmp;
+    tmp.real = a.real * b.real - a.imag * b.imag;
+    tmp.imag = a.imag * b.real + b.imag * a.real;
+    return tmp;
 }
 
 Complex operator / (Complex a, Complex b) {
-    Complex t;
-    t.real = a.real / b.real;
-    t.imag = a.imag / b.imag;
-    return t;
+    Complex tmp;
+    double norm = b.real * b.real + b.imag * b.imag;
+    tmp.real = (a.real * b.real + a.imag * b.imag) / norm;
+    tmp.imag = (a.imag*b.real - b.imag*a.real) / norm;
+    return tmp;
 }
 
 ostream& operator << (ostream& out, const Complex &a) {

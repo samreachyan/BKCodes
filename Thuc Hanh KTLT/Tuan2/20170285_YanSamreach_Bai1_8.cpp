@@ -1,3 +1,7 @@
+/* 
+    auth: Yann Samreach
+    date: 3-Nov-2020
+*/
 #include <iostream>
 #include <vector>
 #include <algorithm>
@@ -5,8 +9,8 @@
 
 using namespace std;
 
-bool compare (vector<int> a, vector<int> b) {
-    return accumulate(a.begin(), a.end(), 0) > accumulate(b.begin(), a.end(), 0);
+bool compare(vector<int> a, vector<int> b){
+    return accumulate(a.begin(), a.end(), 0) > accumulate(b.begin(), b.end(), 0);
 }
 
 int main() {
