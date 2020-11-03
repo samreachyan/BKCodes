@@ -1,69 +1,75 @@
-
-#include<iostream>
- 
+#include <bits/stdc++.h>
 using namespace std;
- 
-#define V 12
-#define MAX 9999999.0
- 
-double TSP(double M_tsp[][V], double dp[][V],int n, int visited, int mask, int currIndex){
-	if(mask == visited)
-		return M_tsp[currIndex][0];
-	
-	if(dp[mask][currIndex] != -1)
-		return dp[mask][currIndex];
-	
-	double ans = MAX;
-		
-	for(int i = 0; i< n; i++)
-	{
-		if((mask & (1<<i ))== 0)
-		{
-			double newAns = M_tsp[currIndex][i] + TSP(M_tsp, dp,n,  visited, mask|(1<<i), i);
-			ans = min(ans, newAns);
-		}
-	}
-	return dp[mask][currIndex] = ans;
-	
+
+string s[101],p;
+int f[100005];
+long long res[105];
+int n;
+
+void prepare() {
+    s[0] = "0";
+    s[1] = "1";
+    int x = min(28,n);
+    for(int i = 2; i <= x; ++i)
+        s[i] = s[i-1]+s[i-2];
+    for(int i = 0 ; i <= n; ++i)
+    {
+        res[i] = -1;
+    }
 }
- 
-int main()
-{
-	int n;
-	cin>>n;
-	double M[2*n+1][2*n+1];
-	int i,j;
-	for(i = 0; i< 2*n+1; i++)
-		for(j = 0; j< 2*n +1; j++)
-			cin>>M[i][j];
-	
-	double M_tsp[n+1][V];
-	for(i = 0; i< n+1; i++)
-	{
-		for(j = 0; j< n+1; j++)
-		{
-			if(i == 0)
-				M_tsp[i][j] = M[i][j];
-			else{
-				M_tsp[i][j] = M[i+n][j];
-			}
-		}
-	}
-		
-	int visited = (1<<(n+1)) - 1;
-	
-	double dp[1<<(n+1)][V];
-	for(i = 0; i< (1<<(n+1)); i++)
-	{
-		for(j = 0; j< n+1; j++)
-			dp[i][j] = -1;
-	}
-	
-	double ans = TSP(M_tsp, dp, n+1, visited, 1, 0);
-	
-	for(i = 1; i< n+1; i++)
-	{
-		ans += M[i][i+n];
-	}
-	cout << ans;
+
+void prepareKMP() {
+    int id = 0;
+    f[0] = -1;
+    f[1] = 0;
+    for (int i = 2; i <= p.length(); ++i) {
+        while(id != -1 && p[i-1] != p[id]) {
+            id = f[id];
+        }
+        f[i] = ++id;
+    }
+}
+
+long long KMP(string x) {
+    int id = 0;
+    long long dem = 0;
+    for(int i = 0; i < x.length(); ++i) {
+        while(id != -1 && x[i] != p[id]) {
+            id = f[id];
+        }
+        if(++id == p.length()) {
+            id = f[id];
+            ++dem;
+        }
+    }
+    return dem;
+}
+
+long long calcmid(int x) {
+    while(!s[x].length())
+        x-=2;
+    int t = p.length()-1;
+    string st = s[x-1].substr(max(0,(int)s[x-1].length()-t),min(t,(int)s[x-1].length()))+s[x-2].substr(0,min(t,(int)s[x-2].length()));
+    return KMP(st);
+}
+
+long long calc(int x) {
+    if(res[x] != -1)
+        return res[x];
+    if(x <= 28)
+        return res[x] = KMP(s[x]);
+    long long t1 = calc(x-1);
+    long long t2 = calc(x-2);
+    long long t3 = calcmid(x);
+    return res[x] = t1 + t2 + t3;
+}
+
+int main() {
+    int dem = 0;
+    while(cin >> n >> p) {
+        prepare();
+        prepareKMP();
+        cout <<"Case "<< ++dem << ": " <<calc(n) << '\n';
+    }
+    return 0;
 }
