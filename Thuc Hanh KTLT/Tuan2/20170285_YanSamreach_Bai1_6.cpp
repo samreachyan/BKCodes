@@ -1,4 +1,7 @@
-// Not do anything yet
+/* 
+    auth: Yann Samreach
+    date: 3-Nov-2020
+*/
 #include <stdio.h>
 
 void print(int n) {
@@ -13,7 +16,6 @@ int div2(int n) {
     return n / 2;
 }
 
-// khai báo các tham số cho các con trỏ hàm odd, even và output
 void simulate(int n, int (*odd)(int) = mul3plus1, int (*even)(int) = div2, void (*output)(int) = print) {
     (*output)(n);
     if (n == 1) return;

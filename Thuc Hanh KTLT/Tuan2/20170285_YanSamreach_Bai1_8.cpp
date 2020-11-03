@@ -1,3 +1,7 @@
+/* 
+    auth: Yann Samreach
+    date: 3-Nov-2020
+*/
 #include <iostream>
 #include <vector>
 #include <algorithm>
