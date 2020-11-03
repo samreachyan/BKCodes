@@ -1,31 +1,40 @@
-#include<iostream>
+#include <bits/stdc++.h>
 using namespace std;
-long long findMAX(int n){
-    int* a= new int[n];
-    long long  MAX=0;
-    for (int i=0; i<n; i++)
-        cin>>a[i];
-    for (int i=0; i<n; i++){
-        if (a[i]==0) continue;
-        int count=1;
-        for (int l=i-1; l>=0; l--){
-            if (a[l]>=a[i]) count++;
-            else break;
-        }
-        for (int r=i+1; r<n; r++){
-            if (a[r]>=a[i] ) count++;
-            else break;
-        }
-        long long t=count*a[i];
-        if (MAX<t) MAX=t;
+
+long long n,a[1000002];
+long long l[1000002],r[1000002];
+
+void solve(){
+    stack<long long> s;
+    s.push(0);
+    a[0] = -1;
+    for(int i = 1; i <= n; i++){
+        while(a[s.top()] >= a[i]) s.pop();
+        l[i] = s.top() + 1;
+        s.push(i);
     }
-    return MAX;
+    while(!s.empty()) s.pop();
+    s.push(n+1);
+    a[n+1] = -1;
+    for(int i = n; i >= 1; i--){
+        while(a[s.top()] >= a[i]) s.pop();
+        r[i] = s.top() - 1;
+        s.push(i);
+    }
+    long long res = 0;
+    for(int i = 1; i <= n; i++){
+        res = max(res, 1ll*(r[i]-l[i]+1)*a[i]);
+    }
+    cout << res << endl;
 }
+
 int main(){
-    int n;
-    cin>>n;
-    while(n!=0){
-        cout<<findMAX(n)<<endl;
-        cin>>n;
+    while(1){
+        cin >> n;
+        if(n==0) return 0;
+        for(int i = 1; i <= n; i++)
+            cin >> a[i];
+        solve();
     }
+    return 0;
 }
