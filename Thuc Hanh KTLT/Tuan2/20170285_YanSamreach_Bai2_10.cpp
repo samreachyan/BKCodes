@@ -39,9 +39,16 @@ Matrix multiply_naive(const Matrix &a, const Matrix &b) {
 }
 
 Matrix multiply_fast(const Matrix &a, const Matrix &b) {
-    /*****************
-    # YOUR CODE HERE #
-    *****************/
+    Matrix c;
+    for (int i = 0; i < N; ++i) {
+        for (int j = 0; j < N; ++j) {
+            c.mat[i][j] = 0;
+            for (int k = 0; k < N; ++k) {
+                c.mat[i][j] += a.mat[i][k] * b.mat[k][j];
+            }
+        }
+    }
+    return c;
 }
 
 Matrix gen_random_matrix() {
