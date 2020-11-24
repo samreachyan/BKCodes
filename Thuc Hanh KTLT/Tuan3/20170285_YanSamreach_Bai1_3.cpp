@@ -1,3 +1,6 @@
+/* 
+    date: 24-Nov-2020
+*/
 #include <bits/stdc++.h>
 #define MAX 1000
 using namespace std;
@@ -9,6 +12,17 @@ bool visitted[MAX];
 int c_min = MAX*MAX;
 int f = 0;
 int f_min = MAX*MAX;
+
+void input() {
+	cin >> n;
+	for(int i = 1; i <= n; i++){
+		visitted[i] = false;
+		for(int j = 1; j <= n; j++){
+			cin >> c[i][j];
+			if(c[i][j] != 0) c_min = min(c_min, c[i][j]);
+		}
+	}
+}
 
 void Try(int k){
 	for(int i = 2; i <= n; i++){
@@ -29,15 +43,7 @@ void Try(int k){
 }
 
 int main(){
-	cin >> n;
-	for(int i = 1; i <= n; i++){
-		visitted[i] = false;
-		for(int j = 1; j <= n; j++){
-			cin >> c[i][j];
-			if(c[i][j] != 0) c_min = min(c_min, c[i][j]);
-		}
-	}
-	
+	input();	
 	a[1] = 1;
 	visitted[a[1]] = true;
 	Try(2);

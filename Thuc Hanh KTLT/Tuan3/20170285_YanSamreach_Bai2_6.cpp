@@ -1,3 +1,6 @@
+/* 
+    date: 24-Nov-2020
+*/
 #include <iostream>
 using namespace std;
 
@@ -24,6 +27,6 @@ int gcd2(int a, int b){
 int main() {
     int a, b;
     cin >> a >> b;
-    cout << gcd(a, b) << endl << gcd2(a, b);
+    cout << gcd(a, b) << endl << gcd2(a, b) << endl;
     return 0;
 }
