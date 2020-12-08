@@ -1,56 +1,57 @@
 #include <iostream>
-#include <map>
-#include<algorithm>
-
+#include <queue>
+#include <climits>
 using namespace std;
+vector<int> dijkstra(const vector< vector< pair<int, int> > >& adj) {
+   priority_queue< pair<int, int> > Q; // {-dist, u}
+   vector<int> dist(adj.size(), (int)1e9);
 
-template<class T>
-map<T, double> fuzzy_set_union(const map<T, double>& a, const map<T, double>& b) {
-   map<T, double> c = a;
-   for (auto it : b) {
-       // c[it.first] = max(c[it.first], it.second);
-       auto it2 = c.find(it.first);
-       if (it2 == c.end()) {
-           c[it.first] = it.second;
-       }
-       else {
-           it2->second = max(it2->second, it.second);
-       }
-   }
-   return c;
-}
-
-template<class T>
-map<T, double> fuzzy_set_intersection(const map<T, double>& a, const map<T, double>& b) {
-   map<T, double> c;
-   for (auto it : a) {
-       double v = it.second;
-       auto it2 = b.find(it.first);
-       if (it2 != b.end()) {
-           v = min(v, it2->second);
-           c[it.first] = v;
+   dist[0] = 0;
+   Q.push({ 0, 0 });
+   while (!Q.empty()) {
+       int u = Q.top().second;
+       int du = -Q.top().first;
+       Q.pop();
+       if (du != dist[u]) continue;
+       for (auto e : adj[u]) {
+           int v = e.first;
+           int w = e.second;
+           if (dist[v] > dist[u] + w) {
+               dist[v] = dist[u] + w;
+               Q.push({ -dist[v], v });
+           }
        }
    }
-   return c;
-}
 
-template<class T>
-void print_fuzzy_set(const map<T, double>& a) {
-   cout << "{ ";
-   for (const auto& x : a) {
-       cout << "(" << x.first << ", " << x.second << ") ";
-   }
-   cout << "}";
-   cout << endl;
+   return dist;
 }
 
 int main() {
-    map<int, double> a = { {1, 0.2}, {2, 0.5}, {3, 1}, {4, 0.6}, {5, 0.7} };
-    map<int, double> b = { {1, 0.5}, {2, 0.4}, {4, 0.9}, {5, 0.4}, {6, 1} };
-    cout << "A = "; print_fuzzy_set(a);
-    cout << "B = "; print_fuzzy_set(b);
-    map<int, double> c = fuzzy_set_union(a, b);
-    map<int, double> d = fuzzy_set_intersection(a, b);
-    cout << "Union: "; print_fuzzy_set(c);
-    cout << "Intersection: "; print_fuzzy_set(d);
+    int n = 9;
+    vector< vector< pair<int, int> > > adj(n);
+    auto add_edge = [&adj](int u, int v, int w) {
+        adj[u].push_back({ v, w });
+        adj[v].push_back({ u, w });
+    };
+
+    add_edge(0, 1, 4);
+    add_edge(0, 7, 8);
+    add_edge(1, 7, 11);
+    add_edge(1, 2, 8);
+    add_edge(2, 3, 7);
+    add_edge(2, 8, 2);
+    add_edge(3, 4, 9);
+    add_edge(3, 5, 14);
+    add_edge(4, 5, 10);
+    add_edge(5, 6, 2);
+    add_edge(6, 7, 1);
+    add_edge(6, 8, 6);
+    add_edge(7, 8, 7);
+
+    vector<int> distance = dijkstra(adj);
+    for (int i = 0; i < distance.size(); ++i) {
+        cout << "distance " << 0 << "->" << i << " = " << distance[i] << endl;
+    }
+
+    return 0;
 }

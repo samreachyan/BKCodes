@@ -2,24 +2,24 @@
 #include <vector>
 #include <algorithm>
 using namespace std;
-void print_vector(const vector<int> &a) {
-    for (int v : a) cout << v << ' ';
-    cout << endl;
+void print_vector(const vector<int>& a) {
+   for (int v : a) if (v%2!=0) cout << v << ' ';
+   cout << endl;
 }
 
-void delete_even(vector<int> &a) {
-    a.erase(a.begin(), a.begin() + a.size());
+void delete_even(vector<int>& a) {
+   auto new_end = remove_if(a.begin(), a.end(), [](int x) { return x % 2 == 0; });
+   a.resize(new_end - a.begin());
 }
 
-void sort_decrease(vector<int> &a) {
-    std::sort(a.begin(), a.begin() + a.size());
+void sort_decrease(vector<int>& a) {
+   sort(a.rbegin(), a.rend());
 }
 
-vector<int> merge_vectors(const vector<int> &a, const vector<int> &b) {
-    vector<int> c;
-    merge(a.begin(), a.end(), b.begin(), b.end(), back_inserter(c), [](int x, int y) {  return x > y; });
-    sort_decrease(c);
-    return c;
+vector<int> merge_vectors(const vector<int>& a, const vector<int>& b) {
+   vector<int> c;
+   merge(a.begin(), a.end(), b.begin(), b.end(), back_inserter(c), [](int x, int y) {  return x > y; });
+   return c;
 }
 
 int main() {

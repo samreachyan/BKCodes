@@ -5,10 +5,11 @@ using namespace std;
 using Vector = tuple<double, double, double>;
 
 Vector cross_product(Vector a, Vector b) {
-    double one = fabs(get<1>(a) * get<2>(b) - get<2>(a) * get<1>(b));
-    double two = fabs(get<2>(a) * get<0>(b) - get<0>(a) * get<2>(b));
-    double three = fabs(get<0>(a) * get<1>(b) - get<1>(a) * get<0>(b));
-    return { one, two, three};
+   Vector c = { 0,0,0 };
+   get<0>(c) = get<1>(a) * get<2>(b) - get<2>(a) * get<1>(b);
+   get<1>(c) = get<2>(a) * get<0>(b) - get<0>(a) * get<2>(b);
+   get<2>(c) = get<0>(a) * get<1>(b) - get<1>(a) * get<0>(b);
+   return c;
 }
 
 int main() {

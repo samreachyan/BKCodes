@@ -8,7 +8,7 @@ void bfs(vector< list<int> > adj) {
    int n = adj.size() - 1;
    vector<bool> was(n + 1);
    queue<int> Q;
-   for (int start = 1; start <= n; ++start) {
+   for (int start = 1; start <= n-2; ++start) {
        if (was[start]) continue;
        Q.push(start);
        was[start] = true;

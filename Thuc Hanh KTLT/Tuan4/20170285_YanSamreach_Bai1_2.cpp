@@ -6,9 +6,7 @@ using namespace std;
 using Point = pair<double, double>;
 
 double area(Point a, Point b, Point c) {
-    double AB = sqrt(pow((a.first - b.first), 2) + pow((a.second - b.second), 2));
-    double AC = sqrt(pow((a.first - c.first), 2) + pow((a.second - c.second), 2));
-    return (AB * AC)/2;
+    return 0.5 * abs((c.first - a.first) * (b.second - a.second) - (b.first - a.first) * (c.second - a.second));
 }
 
 int main() {
