@@ -9,7 +9,7 @@ void dfs(vector< list<int> > adj) {
    stack<int> S;
    vector<bool> was(n + 1);
    vector<bool> printed(n + 1);
-   for (int start = 1; start <= n-2; start++)
+   for (int start = 1; start < n; start++)
    {
        if (was[start]) continue;
        S.push(start);
