@@ -2,9 +2,9 @@
 
 int x[100], mark[100], n;
 
-void print(){ // Wrong
+void printf(){ // Wrong
     for (int i = 1; i <= n; ++i) printf("%d ", x[i]);
-    print("\n");
+    printf("\n");
 }
 
 void process(int i) {
