@@ -1,41 +1,54 @@
-#include<iostream>
-#include<map>
-#include<time.h>
+#include <bits/stdc++.h>
+#define MAX 1000
+
 using namespace std;
+// 5
+// 0 3 14 18 15
+// 3 0 4 22 20
+// 17 9 0 16 4
+// 9 20 7 0 18
+// 9 15 11 5 0
+
+int n; 
+int a[MAX];
+int c[MAX][MAX];
+bool visitted[MAX];
+int c_min = MAX*MAX;
+int f = 0;
+int f_min = MAX*MAX;
+
+void Try(int k){
+	for(int i = 2; i <= n; i++){
+		if(!visitted[i]){
+			a[k] = i;
+			visitted[i] = true;
+			f += c[a[k-1]][a[k]];
+			if(k == n){
+				f_min = min(f + c[a[n]][a[1]], f_min);	
+			} else{
+				int g = f + (n-k+1)*c_min;
+				if(g < f_min) Try(k+1);
+			}
+			visitted[i] = false;
+			f -= c[a[k-1]][a[k]];
+		}
+	}
+}
 
 int main() {
-	srand((int)time(0));
-    
-	/*if (argc > 1)
-	{
-		srand(atoi(argv[1]));
+	cin >> n;
+	for(int i = 1; i <= n; i++){
+		visitted[i] = false;
+		for(int j = 1; j <= n; j++){
+			cin >> c[i][j];
+			if(c[i][j] != 0) c_min = min(c_min, c[i][j]);
+		}
 	}
-	else return -1;*/
-	const int MAXXX = 1000;
-	int m, n;
-	n = rand() % 10 + 1;
-	//srand((int)time(0));
-	m = rand() % (n*(n-1));
-
-	map <pair<int, int>, int> E;
-
-	int u, v, w;
-
-	while (E.size() < m)
-	{
-		u = (rand() % n)+1;
-		v = (rand() % n)+1;
-		if (u == v) continue;
-		w = rand() % MAXXX;
-		E[make_pair(u, v)] = w;
-	}
-
-	cout << n << " " << m << endl;
-
-	for (auto it : E)
-	{
-		cout << it.first.first << " " << it.first.second << " " << it.second << endl;
-	}
-
-	return 0;
+	
+	a[1] = 1;
+	visitted[a[1]] = true;
+	Try(2);
+	cout << c_min << "\n";
+	
+	return 0;	
 }
